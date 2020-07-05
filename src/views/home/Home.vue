@@ -1,14 +1,15 @@
-<template>
-  <div class="">
-    <h2>我是首页</h2>
-  </div>
-
-
+<template lang="html">
+  <Banner></Banner>
 </template>
 
 <script>
+import Banner from 'components/common/banner/Banner'
+
 export default {
-  name: 'home'
+  name: 'home',
+  components: {
+    Banner
+  }
 }
 </script>
 
