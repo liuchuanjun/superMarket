@@ -1,5 +1,5 @@
 <template lang="html">
-  <Banner :slideList = "imgList" slidTime = "2000">
+  <Banner :slideList = "imgList" slidTime = "3000">
   </Banner>
 </template>
 

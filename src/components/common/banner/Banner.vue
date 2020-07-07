@@ -14,8 +14,8 @@
     </a>
   </li>
 </transition-group> -->
-<ul class='slide-ul' name="list">
-  <li v-for="(list) in slideList"
+<ul id="slide-ul" :class="{'slideActive': currentIndex > 0}" name="list" :style="{left:imgDistance}">
+  <li v-for="list in slideList"
   v-bind:key="list.id"
   @mouseover="stop"
   @mouseleave="go"
@@ -39,7 +39,8 @@ export default {
     currentIndex:0,//图片索引
     timer: null,
     startX: 0,
-    disX: 0
+    disX: 0,
+    imgDistance: 0
   }
 },
 props: {
@@ -70,6 +71,8 @@ methods:{
     if (this.currentIndex > this.slideList.length - 1) {
       this.currentIndex = 0
     }
+
+    this.imgDistance = -this.currentIndex * 100 + "vw"
   },
   handleStart(e){
 
@@ -115,7 +118,7 @@ mounted() {
   //在DOM加载完成后，下个tick中开始轮播
   this.$nextTick(() => {
     this.timer = setInterval(() => {
-    //this.autoPlay()
+      this.autoPlay()
     }, this.slidTime)
   })
 }
@@ -163,7 +166,7 @@ mounted() {
   background-color: #fff;
 }
 
-.slide-ul {
+#slide-ul {
 
   position: absolute;
   width: 100%;
@@ -172,6 +175,9 @@ mounted() {
   left: 0;
 
   display: flex;
+
+
+  //animation:mymove 2s infinite;
 
   li {
 
@@ -185,6 +191,27 @@ mounted() {
       object-fit: cover;
     }
   }
+}
+
+.slideActive {
+
+  transition: all 1s ease;
+}
+
+@keyframes mymove
+{
+  from {left:0px;}
+  to {left:-100vw;}
+  to {left:-200vw;}
+  to {left:-300vw;}
+}
+
+@-webkit-keyframes mymove /*Safari and Chrome*/
+{
+  from {left:0px;}
+  to {left:-100vw;}
+  to {left:-200vw;}
+  to {left:-300vw;}
 }
 
 .carousel-items {
