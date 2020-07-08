@@ -27,6 +27,18 @@
     </a>
   </li>
 </ul>
+<ul v-show="isShow" :class="{'slideActive': currentIndex = 4}" :style="{left:imgDistance2}" id="slide-ul2">
+  <li
+  @mouseover="stop"
+  @mouseleave="go"
+  @touchstart.prevent.stop="handleStart"
+  @touchmove.prevent.stop="handleMove"
+  @touchend.prevent.stop="handleEnd">
+    <a href="#" >
+      <img :src="imgUrl.image">
+    </a>
+  </li>
+</ul>
 <div class="carousel-items">
   <span v-for="(item,index) in slideList.length" :class="{'active':index===currentIndex}" @mouseover="change(index)" :key="index"></span>
 </div>
@@ -40,7 +52,10 @@ export default {
     timer: null,
     startX: 0,
     disX: 0,
-    imgDistance: 0
+    imgDistance: 0,
+    imgDistance2: '',
+    isShow: true,
+    imgUrl: {}
   }
 },
 props: {
@@ -67,9 +82,22 @@ methods:{
     this.currentIndex = index
   },
   autoPlay() {
+
     this.currentIndex++
-    if (this.currentIndex > this.slideList.length - 1) {
-      this.currentIndex = 0
+
+    console.log(this.currentIndex)
+
+    if (this.currentIndex == this.slideList.length){
+      this.imgDistance2 = 0
+      this.isShow = true
+
+      setTimeout(()=>{
+        this.currentIndex = 0
+        this.imgDistance = -this.currentIndex * 100 + "vw"
+
+        this.isShow = false
+        this.imgDistance2 = "100vw"
+      },1000)
     }
 
     this.imgDistance = -this.currentIndex * 100 + "vw"
@@ -114,14 +142,19 @@ methods:{
     }, this.slidTime)
   }
 },
+created(){
+
+  this.imgUrl = this.slideList[0]
+  this.imgUrl.id = this.slideList.length + 1
+},
 mounted() {
-  //在DOM加载完成后，下个tick中开始轮播
-  this.$nextTick(() => {
-    this.timer = setInterval(() => {
-      this.autoPlay()
-    }, this.slidTime)
-  })
-}
+    //在DOM加载完成后，下个tick中开始轮播
+    this.$nextTick(() => {
+      this.timer = setInterval(() => {
+        this.autoPlay()
+      }, this.slidTime)
+    })
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -176,8 +209,27 @@ mounted() {
 
   display: flex;
 
+  li {
 
-  //animation:mymove 2s infinite;
+    width: 100vw;
+    height: 100%;
+
+    img {
+
+      width: 100vw;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+#slide-ul2 {
+
+  position: absolute;
+  width: 100%;
+  height: 30vh;
+  left: 100vw;
+  transition: all 1s ease;
 
   li {
 
@@ -193,6 +245,11 @@ mounted() {
   }
 }
 
+.leftActive {
+
+  left: 0
+}
+
 .slideActive {
 
   transition: all 1s ease;
@@ -200,18 +257,14 @@ mounted() {
 
 @keyframes mymove
 {
-  from {left:0px;}
-  to {left:-100vw;}
-  to {left:-200vw;}
-  to {left:-300vw;}
+  from {left:100vw;}
+  to {left: 0;}
 }
 
 @-webkit-keyframes mymove /*Safari and Chrome*/
 {
-  from {left:0px;}
-  to {left:-100vw;}
-  to {left:-200vw;}
-  to {left:-300vw;}
+  from {left:100vw;}
+  to {left: 0;}
 }
 
 .carousel-items {
