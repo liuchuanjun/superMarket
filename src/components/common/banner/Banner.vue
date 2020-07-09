@@ -14,7 +14,7 @@
     </a>
   </li>
 </transition-group> -->
-<ul id="slide-ul" :class="{'slideActive': currentIndex > 0}" name="list" :style="{left:imgDistance}">
+<ul class="slide-ul" :class="{'slideActive': currentIndex > 0}" name="list" :style="{left:imgDistance}">
   <li v-for="list in slideList"
   v-bind:key="list.id"
   @mouseover="stop"
@@ -27,7 +27,7 @@
     </a>
   </li>
 </ul>
-<ul v-show="isShow" :class="{'slideActive': currentIndex = 4}" :style="{left:imgDistance2}" id="slide-ul2">
+<ul v-show="isShow" class="slide-ul2" :class="{leftActive: isShow}" :style="{left:imgDistance2}">
   <li
   @mouseover="stop"
   @mouseleave="go"
@@ -47,114 +47,112 @@
 <script>
 export default {
   data() {
-  return{
-    currentIndex:0,//图片索引
-    timer: null,
-    startX: 0,
-    disX: 0,
-    imgDistance: 0,
-    imgDistance2: '',
-    isShow: true,
-    imgUrl: {}
-  }
-},
-props: {
-  slideList: {
-    type: Array,
-    default: () => []
-  },
-  slidTime: {
-    type: String,
-    default: "3000"
-  }
-},
-methods:{
-  go() {
-    this.timer = setInterval(() => {
-      this.autoPlay()
-    }, this.slidTime)
-  },
-  stop() {
-    clearInterval(this.timer)
-    this.timer = null
-  },
-  change(index) {
-    this.currentIndex = index
-  },
-  autoPlay() {
-
-    this.currentIndex++
-
-    console.log(this.currentIndex)
-
-    if (this.currentIndex == this.slideList.length){
-      this.imgDistance2 = 0
-      this.isShow = true
-
-      setTimeout(()=>{
-        this.currentIndex = 0
-        this.imgDistance = -this.currentIndex * 100 + "vw"
-
-        this.isShow = false
-        this.imgDistance2 = "100vw"
-      },1000)
+    return{
+      currentIndex:0,//图片索引
+      timer: null,
+      startX: 0,
+      disX: 0,
+      imgDistance: 0,
+      imgDistance2: '100vw',
+      slide2Active: "",
+      isShow: false,
+      imgUrl: {}
     }
-
-    this.imgDistance = -this.currentIndex * 100 + "vw"
   },
-  handleStart(e){
-
-    clearInterval(this.timer)
-    this.timer = null
-    this.startX = e.changedTouches[0].clientX;
-  },
-  handleMove(e){
-
-    clearInterval(this.timer)
-
-    this.disX = e.changedTouches[0].clientX - this.startX
-  },
-  handleEnd(e){
-
-    this.disX = e.changedTouches[0].clientX - this.startX
-
-    if(this.disX < 0){
-
-      if (this.currentIndex > this.slideList.length - 1) {
-        this.currentIndex = 0
-      }
-      else {
-        this.currentIndex++
-      }
+  props: {
+    slideList: {
+      type: Array,
+      default: () => []
+    },
+    slidTime: {
+      type: String,
+      default: "3000"
     }
-    else if(this.disX > 0){
-
-      if (this.currentIndex == 0) {
-        this.currentIndex = this.slideList.length - 1
-      }
-      else {
-
-        this.currentIndex--
-      }
-    }
-    this.timer = setInterval(() => {
-      this.autoPlay()
-    }, this.slidTime)
-  }
-},
-created(){
-
-  this.imgUrl = this.slideList[0]
-  this.imgUrl.id = this.slideList.length + 1
-},
-mounted() {
-    //在DOM加载完成后，下个tick中开始轮播
-    this.$nextTick(() => {
+  },
+  methods:{
+    go() {
       this.timer = setInterval(() => {
         this.autoPlay()
       }, this.slidTime)
-    })
-  }
+    },
+    stop() {
+      clearInterval(this.timer)
+      this.timer = null
+    },
+    change(index) {
+      this.currentIndex = index
+    },
+    autoPlay() {
+
+      this.currentIndex++
+
+      if (this.currentIndex == this.slideList.length){
+        this.isShow = true
+        this.imgDistance2 = 0
+
+        setTimeout(()=>{
+          this.currentIndex = 0
+          this.imgDistance = -this.currentIndex * 100 + "vw"
+          this.isShow = false
+          this.imgDistance2 = "100vw"
+        },1000)
+      }
+
+      this.imgDistance = -this.currentIndex * 100 + "vw"
+    },
+    handleStart(e){
+
+      clearInterval(this.timer)
+      this.timer = null
+      this.startX = e.changedTouches[0].clientX;
+    },
+    handleMove(e){
+
+      clearInterval(this.timer)
+
+      this.disX = e.changedTouches[0].clientX - this.startX
+    },
+    handleEnd(e){
+
+      this.disX = e.changedTouches[0].clientX - this.startX
+
+      if(this.disX < 0){
+
+        if (this.currentIndex > this.slideList.length - 1) {
+          this.currentIndex = 0
+        }
+        else {
+          this.currentIndex++
+        }
+      }
+      else if(this.disX > 0){
+
+        if (this.currentIndex == 0) {
+          this.currentIndex = this.slideList.length - 1
+        }
+        else {
+
+          this.currentIndex--
+        }
+      }
+      this.timer = setInterval(() => {
+        this.autoPlay()
+      }, this.slidTime)
+    }
+  },
+  created(){
+
+    this.imgUrl = this.slideList[0]
+    this.imgUrl.id = this.slideList.length + 1
+  },
+  mounted() {
+      //在DOM加载完成后，下个tick中开始轮播
+      this.$nextTick(() => {
+        this.timer = setInterval(() => {
+          this.autoPlay()
+        }, this.slidTime)
+      })
+    }
 }
 </script>
 <style lang="scss" scoped>
@@ -199,7 +197,7 @@ mounted() {
   background-color: #fff;
 }
 
-#slide-ul {
+.slide-ul {
 
   position: absolute;
   width: 100%;
@@ -223,13 +221,11 @@ mounted() {
   }
 }
 
-#slide-ul2 {
+.slide-ul2 {
 
   position: absolute;
   width: 100%;
   height: 30vh;
-  left: 100vw;
-  transition: all 1s ease;
 
   li {
 
@@ -247,7 +243,7 @@ mounted() {
 
 .leftActive {
 
-  left: 0
+  animation: mymove 1s infinite;
 }
 
 .slideActive {
