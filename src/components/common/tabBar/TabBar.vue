@@ -22,7 +22,7 @@ export default {
   align-items: center;
   height: 49px;
 
-  box-shadow: 0px 1px 3px #000;
+  box-shadow: 0px 1px 2px #000;
   background-color: #f6f6f6;
 }
 </style>
