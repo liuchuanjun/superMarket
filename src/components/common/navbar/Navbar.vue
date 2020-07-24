@@ -19,11 +19,15 @@ export default {
 <style lang="scss" scoped>
   .naver-container {
 
+    position: fixed;
+    top: 0;
+    z-index: 10;
+
     display: flex;
     width: 100%;
     height: 49px;
 
-    background-color: red;
+    background-color: brown;
 
     .naver-left {
 

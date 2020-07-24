@@ -43,7 +43,7 @@ export default {
     .tabControl-container {
 
         width: 100%;
-        height: 30px;
+        height: 36px;
         padding: 0 1%;
         box-sizing: border-box;
 
@@ -56,7 +56,7 @@ export default {
 
             width: 33vw;
 
-            line-height: 30px;
+            line-height: 36px;
             text-align: center;
 
             background-color: #fff;
