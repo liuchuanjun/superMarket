@@ -1,15 +1,35 @@
-<template lang="html">
-  <div class="">
-    <h2>我是个人页面</h2>
-  </div>
+<template>
+  <div class="wrapper">
+    <span v-if="isShow">个人页面</span>
+    <span v-else>我是通过全局的数据加载出来的</span>
 
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'profile'
-}
-</script>
+  components: {},
+  props: {},
+  data() {
+    return {
 
-<style lang="css" scoped>
+      isShow: true
+    };
+  },
+  watch: {},
+  computed: {},
+  methods: {},
+  created() {},
+  mounted() {
+
+    this.isShow = this.global.flag
+  }
+};
+</script>
+<style lang="scss" scoped>
+.wrapper{
+
+  width: 100%;
+  height: 100%;
+}
 </style>

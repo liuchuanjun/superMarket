@@ -137,9 +137,9 @@ export default {
       this.showArrowTop = -position.y > 600
     }
   },
-  watch: {
+  mounted(){
 
-    
+    this.global.flag = false
   }
 }
 </script>

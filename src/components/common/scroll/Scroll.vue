@@ -39,6 +39,8 @@ export default {
 
             this.$emit('arrowShow', position)
         })
+
+        console.log(this.scroll);
     },
     methods: {
 

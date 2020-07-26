@@ -11,6 +11,6 @@ module.exports = {
       .set("components", resolve("src/components"))
       .set("base", resolve("baseConfig"))
       .set("public", resolve("public"))
-      .set("views", resolve("views"));
+      .set("views", resolve("views"))
   },
 }

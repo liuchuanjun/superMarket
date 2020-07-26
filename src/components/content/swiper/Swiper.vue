@@ -1,16 +1,15 @@
 <template>
-        <div class="swiper-container" ref="swiper">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide" v-for="(item,index) in slideList" :key="index">
-                    <img :src="item.image" alt="">
-                </div>
-                <div class="swiper-pagination" slot="pagination" ref="pagenations"></div>
+    <div class="swiper-container" ref="swiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" v-for="(item,index) in slideList" :key="index">
+                <img :src="item.image" alt="">
             </div>
-        <!-- Add Pagination -->
-        <!-- <div class="swiper-pagination" slot="pagination" ref="pagenations"></div> -->
-        
+            <div class="swiper-pagination" slot="pagination" ref="pagenations"></div>
         </div>
-
+    <!-- Add Pagination -->
+    <div class="swiper-pagination" slot="pagination" ref="pagenations"></div>
+    
+    </div>
 </template>
 
 <script>
@@ -22,14 +21,7 @@ import 'swiper/swiper-bundle.css';
 export default {
     data() {
       return {       
-          swiper: null,
-          swiperOption:{
-
-              pagination: {
-                el: this.$refs.pagenations,
-                clickable:true
-            },
-          }
+            swiper: null
         }
     },
     props: {
@@ -38,6 +30,10 @@ export default {
             type: Array,
             default: () => []
         }
+    },
+    methods:{
+
+        
     },
     mounted() {
 
@@ -48,9 +44,9 @@ export default {
             effect:'coverflow',          //滑动效果
             touchAngle : 30,
             pagination: {
-                el: this.$refs.pagenations,
+                el: this.$refs.pagination,
                 clickable:true,
-                type:'bullets'
+                type:'bullets',
             },
             autoplay: 3000
         })

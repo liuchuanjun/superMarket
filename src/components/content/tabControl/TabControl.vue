@@ -48,13 +48,12 @@ export default {
         box-sizing: border-box;
 
         display: flex;
-        flex: 1;
 
         margin-top: 10px;
 
         .tabControl-item {
 
-            width: 33vw;
+            flex: 1;
 
             line-height: 36px;
             text-align: center;
