@@ -2,14 +2,18 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 
-// import VueAwesomeSwiper from 'vue-awesome-swiper'
+import VueAwesomeSwiper from 'vue-awesome-swiper'
 
-// // import style
-// //import 'swiper/css/swiper.css'
-// // If you use Swiper 6.0.0 or higher
-// import 'swiper/swiper-bundle.css'
+<<<<<<< HEAD
+Vue.use(VueAwesomeSwiper)
 
+import 'vue-awesome-swiper/node_modules/swiper/dist/css/swiper.css'
+=======
 // Vue.use(VueAwesomeSwiper)
+import global from './utils/global_data'
+
+Vue.prototype.global = global
+>>>>>>> 0eb2e8a2ed2a115508de7c8d0d79c989d600ec63
 
 Vue.config.productionTip = false
 

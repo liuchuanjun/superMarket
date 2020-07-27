@@ -1,48 +1,34 @@
 <template>
-<div class="carousel-wrap carousel-height" id="carousel">
-<!-- <transition-group tag="ul" class='slide-ul' name="list">
-  <li v-for="(list,index) in slideList"
-  v-bind:key="list.id"
-  v-show="index===currentIndex"
-  @mouseover="stop"
-  @mouseleave="go"
-  @touchstart.prevent.stop="handleStart"
-  @touchmove.prevent.stop="handleMove"
-  @touchend.prevent.stop="handleEnd">
-    <a href="#" >
-      <img :src="list.image">
-    </a>
-  </li>
-</transition-group> -->
-<ul class="slide-ul" :class="{'slideActive': currentIndex > 0}" name="list" :style="{left:imgDistance}">
-  <li v-for="list in slideList"
-  v-bind:key="list.id"
-  @mouseover="stop"
-  @mouseleave="go"
-  @touchstart.prevent.stop="handleStart"
-  @touchmove.prevent.stop="handleMove"
-  @touchend.prevent.stop="handleEnd">
-    <a href="#" >
-      <img :src="list.image">
-    </a>
-  </li>
-</ul>
-<ul v-show="isShow" class="slide-ul2" :class="{leftActive: isShow}" :style="{left:imgDistance2}">
-  <li
-  @mouseover="stop"
-  @mouseleave="go"
-  @touchstart.prevent.stop="handleStart"
-  @touchmove.prevent.stop="handleMove"
-  @touchend.prevent.stop="handleEnd">
-    <a href="#" >
-      <img :src="imgUrl.image">
-    </a>
-  </li>
-</ul>
-<div class="carousel-items">
-  <span v-for="(item,index) in slideList.length" :class="{'active':index===currentIndex}" @mouseover="change(index)" :key="index"></span>
-</div>
-</div>
+  <div class="carousel-wrap carousel-height" id="carousel">
+    <ul class="slide-ul" :class="{'slideActive': currentIndex > 0}" name="list" :style="{left:imgDistance}">
+      <li v-for="list in slideList"
+      v-bind:key="list.id"
+      @mouseover="stop"
+      @mouseleave="go"
+      @touchstart.prevent.stop="handleStart"
+      @touchmove.prevent.stop="handleMove"
+      @touchend.prevent.stop="handleEnd">
+        <a href="#" >
+          <img :src="list.image">
+        </a>
+      </li>
+    </ul>
+    <ul v-show="isShow" class="slide-ul2" :class="{leftActive: isShow}" :style="{left:imgDistance2}">
+      <li
+      @mouseover="stop"
+      @mouseleave="go"
+      @touchstart.prevent.stop="handleStart"
+      @touchmove.prevent.stop="handleMove"
+      @touchend.prevent.stop="handleEnd">
+        <a href="#" >
+          <img :src="imgUrl.image">
+        </a>
+      </li>
+    </ul>
+    <div class="carousel-items">
+      <span v-for="(item,index) in slideList.length" :class="{'active':index===currentIndex}" @mouseover="change(index)" :key="index"></span>
+    </div>
+  </div>
 </template>
 <script>
 export default {
