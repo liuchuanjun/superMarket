@@ -2,7 +2,7 @@
 
         <swiper :options='swiperOption'>
             <swiper-slide v-for="(item,index) in slideList" :key="index">
-                <img :src="item.image" alt="">
+                <img :src="item.image" alt="" @load="swiperLoad">
             </swiper-slide>
             <div class="swiper-pagination" slot="pagination"></div>
         </swiper>
@@ -11,6 +11,7 @@
 <script>
 
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
+import 'vue-awesome-swiper/node_modules/swiper/dist/css/swiper.css'
 
 export default {
     components:{
@@ -19,6 +20,7 @@ export default {
     },
     data() {
       return {
+          isLoad: false,
           swiperOption:{
               pagination: {
                 el: '.swiper-pagination',
@@ -26,7 +28,7 @@ export default {
             },
             slidePerView: 1,
             autoplay:{
-                delay:10000,
+                delay:3000,
                 disableOnIntetaction: false
             },
             spaceBetween: 30,
@@ -43,7 +45,14 @@ export default {
     },
     methods:{
 
+        swiperLoad(){
 
+            if(!this.isLoad){
+
+                this.$emit("swiperLoad")
+                this.isLoad = true;
+            }
+        }
     },
     mounted() {
 

@@ -3,11 +3,16 @@
     <Naver>
       <div slot="item-center" class="">购物车</div>
     </Naver>
+    <TabControl :titles = "titles"
+                class="tab_control"
+                @tabControlClick="tabControlClick" 
+                ref="tabcontrol"
+                v-show="isShowTabcontrol"/>
     <Scroll class="scroll-content" :probeType="3" ref="scroll" @arrowShow='arrowShow'>
       <!--Banner :slideList = "imgList" slidTime = "3000"/-->
-      <Swiper :slideList = "imgList"/>
+      <Swiper :slideList = "imgList" @swiperLoad='swiperLoad'/>
       <PopItemShow :popImgs="popImags" />
-      <TabControl :titles = "titles" @tabControlClick="tabControlClick"/>
+      <TabControl :titles = "titles" @tabControlClick="tabControlClick" ref="tabcontrol"/>
       <PetList :petLists = "petLists[switchTitle]" />
     </Scroll>
     <ArrowTop @click.native="arrowClick" v-show="showArrowTop" />
@@ -108,7 +113,9 @@ export default {
         }
 
       },
-      showArrowTop: false
+      showArrowTop: false,
+      tabControlTop: 0,
+      isShowTabcontrol: false
     }
   },
   methods: {
@@ -135,11 +142,23 @@ export default {
     arrowShow(position){
 
       this.showArrowTop = -position.y > 600
+
+      this.isShowTabcontrol = -position.y == this.tabControlTop
+    },
+
+    /**
+     * 获取tabControl的offsetTop
+     */
+    swiperLoad(){
+
+      this.tabControlTop = this.$refs.tabcontrol.$el.offsetTop
     }
   },
   mounted(){
 
     this.global.flag = false
+
+     
   }
 }
 </script>
@@ -153,5 +172,11 @@ export default {
   bottom: 49px;
   left: 0;
   right: 0;
+}
+
+.tab_control {
+
+  position: relative;
+  z-index: 9;
 }
 </style>

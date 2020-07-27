@@ -19,8 +19,8 @@ export default {
 <style lang="scss" scoped>
   .naver-container {
 
-    position: fixed;
-    top: 0;
+    position: relative;
+
     z-index: 10;
 
     display: flex;

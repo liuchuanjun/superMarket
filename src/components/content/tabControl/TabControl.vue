@@ -49,8 +49,6 @@ export default {
 
         display: flex;
 
-        margin-top: 10px;
-
         .tabControl-item {
 
             flex: 1;

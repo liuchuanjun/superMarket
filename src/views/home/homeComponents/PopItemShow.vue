@@ -31,6 +31,8 @@
         display: flex;
         justify-content: space-between;
 
+        margin-bottom: 10px;
+
         background-color: #fff;
 
         .pop-item {
