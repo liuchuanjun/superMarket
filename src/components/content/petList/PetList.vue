@@ -1,13 +1,15 @@
 <template>
     <div class="pet-container">
         <div class="pet-item" v-for="(item,index) in petLists.list" :key="index">
-            <img :src="item.image" alt="">
+            <img :src="item.image" alt="" @load='petImageLoad'>
             <span>{{item.title}}</span>
         </div>
     </div>
 </template>
 
 <script>
+
+
 export default {
     data() {
         return {
@@ -21,7 +23,11 @@ export default {
         }
     },
     methods: {
+        
+        petImageLoad(){
 
+            this.$emit('petImageLoad')
+        }
     },
     created() {
 

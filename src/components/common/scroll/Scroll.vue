@@ -31,20 +31,33 @@ export default {
         this.scroll = new Bscroll(this.$refs.wrapper,{
 
             probeType: this.probeType,
-            click: true
+            click: true,
+            pullUpLoad: true
 
         })
 
+        // 监听滚动的位置
         this.scroll.on('scroll', (position)=>{
 
-            this.$emit('arrowShow', position)
+            this.$emit('contentScroll', position)
+        })
+
+        // 监听上拉加载
+        this.scroll.on('pullingUp',()=>{
+
+            this.$emit('pullingUp')
         })
     },
     methods: {
 
         scroolTo(x,y,time=300){
 
-            this.scroll.scrollTo(x,y,time)
+            this.scroll && this.scroll.scrollTo(x,y,time)
+        },
+
+        refresh(){
+
+            this.scroll && this.scroll.refresh();
         }
     }
 };

@@ -6,7 +6,7 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 
 Vue.use(VueAwesomeSwiper)
 
-import global from './utils/global_data'
+import global from './assets/utils/global_data'
 
 Vue.prototype.global = global
 

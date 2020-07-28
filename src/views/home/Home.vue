@@ -1,19 +1,19 @@
 <template lang="html">
   <div class="">
     <Naver>
-      <div slot="item-center" class="">购物车</div>
+      <div slot="item-center" class="">Animal Panel</div>
     </Naver>
     <TabControl :titles = "titles"
                 class="tab_control"
                 @tabControlClick="tabControlClick" 
-                ref="tabcontrol"
+                ref="tabcontrol1"
                 v-show="isShowTabcontrol"/>
-    <Scroll class="scroll-content" :probeType="3" ref="scroll" @arrowShow='arrowShow'>
+    <Scroll class="scroll-content" :probeType="3" ref="scroll" @contentScroll='contentScroll' @pullingUp='loadMore'>
       <!--Banner :slideList = "imgList" slidTime = "3000"/-->
       <Swiper :slideList = "imgList" @swiperLoad='swiperLoad'/>
       <PopItemShow :popImgs="popImags" />
-      <TabControl :titles = "titles" @tabControlClick="tabControlClick" ref="tabcontrol"/>
-      <PetList :petLists = "petLists[switchTitle]" />
+      <TabControl :titles = "titles" @tabControlClick="tabControlClick" ref="tabcontrol2"/>
+      <PetList :petLists = "petLists[switchTitle]" @petImageLoad ='petImageLoad'/>
     </Scroll>
     <ArrowTop @click.native="arrowClick" v-show="showArrowTop" />
   </div>
@@ -30,6 +30,8 @@ import Scroll from 'components/common/scroll/Scroll'
 import ArrowTop from 'components/content/arrowTop/ArrowTop'
 
 import PopItemShow from './homeComponents/PopItemShow'
+
+import { Debounce } from 'assets/utils/utilFun'
 
 export default {
   name: 'home',
@@ -115,7 +117,9 @@ export default {
       },
       showArrowTop: false,
       tabControlTop: 0,
-      isShowTabcontrol: false
+      isShowTabcontrol: false,
+      currentIndex: 0,
+      refresh: null
     }
   },
   methods: {
@@ -125,7 +129,10 @@ export default {
      */
     tabControlClick(index){
 
+      this.currentIndex = index
       this.switchTitle = this.switchTitles[index]
+      this.$refs.tabcontrol2.currentIndex = index
+      this.$refs.tabcontrol1.currentIndex = index
     },
 
     /**
@@ -137,13 +144,15 @@ export default {
     },
 
     /**
-     * 什么时间显示箭头
+     * scroll组件传递'position'的值
      */
-    arrowShow(position){
+    contentScroll(position){
 
+      // 显示回到页面顶部箭头的判断
       this.showArrowTop = -position.y > 600
 
-      this.isShowTabcontrol = -position.y == this.tabControlTop
+      // 显示tab-control的判断
+      this.isShowTabcontrol = -position.y > this.tabControlTop
     },
 
     /**
@@ -151,14 +160,32 @@ export default {
      */
     swiperLoad(){
 
-      this.tabControlTop = this.$refs.tabcontrol.$el.offsetTop
+      this.tabControlTop = this.$refs.tabcontrol2.$el.offsetTop
+    },
+
+    /**
+     * 延时刷新scroll的refresh函数
+     */
+    petImageLoad(){
+
+      this.refresh();
+    },
+
+    /**
+     * 上拉加载更多
+     */
+    loadMore(){
+
+      console.log('加载更多...')
+
     }
   },
   mounted(){
 
     this.global.flag = false
 
-     
+    // Bscroll的scrollHight的刷新
+    this.refresh = Debounce(this.$refs.scroll.refresh,300)
   }
 }
 </script>

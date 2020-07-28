@@ -44,6 +44,7 @@ export default {
 
       font-size: 20px;
       color: #fff;
+      font-weight: 600;
     }
 
     .naver-right {
