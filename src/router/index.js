@@ -5,6 +5,7 @@ const Home = () => import('@/views/home/Home')
 const Catgory = () => import('@/views/catgory/Catgory')
 const Profile = () => import('@/views/profile/Profile')
 const Shop = () => import('@/views/shop/Shop')
+const Detail = () => import('@/views/detail/Detail')
 
 // 创建应用
 Vue.use(VueRouter)
@@ -31,6 +32,10 @@ const routes = [
   {
     path: '/',
     redirect:'/home'
+  },
+  {
+    path:'/detail',
+    component: Detail
   }
 ]
 

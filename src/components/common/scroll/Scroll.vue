@@ -58,6 +58,11 @@ export default {
         refresh(){
 
             this.scroll && this.scroll.refresh();
+        },
+
+        finishPullUp(){
+
+            this.scroll && this.scroll.finishPullUp();
         }
     }
 };

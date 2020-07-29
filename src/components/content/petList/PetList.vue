@@ -1,6 +1,6 @@
 <template>
     <div class="pet-container">
-        <div class="pet-item" v-for="(item,index) in petLists.list" :key="index">
+        <div class="pet-item" v-for="(item,index) in petLists.list" :key="index" @click="petItemClick">
             <img :src="item.image" alt="" @load='petImageLoad'>
             <span>{{item.title}}</span>
         </div>
@@ -23,10 +23,16 @@ export default {
         }
     },
     methods: {
-        
+
+        // 图片加载完成发送
         petImageLoad(){
 
             this.$emit('petImageLoad')
+        },
+
+        petItemClick(){
+
+            this.$router.push('/detail')
         }
     },
     created() {
