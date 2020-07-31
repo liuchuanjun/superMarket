@@ -34,7 +34,7 @@ const routes = [
     redirect:'/home'
   },
   {
-    path:'/detail',
+    path:'/detail/:id',
     component: Detail
   }
 ]

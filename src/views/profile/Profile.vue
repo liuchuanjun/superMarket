@@ -21,8 +21,6 @@ export default {
   methods: {},
   created() {},
   mounted() {
-
-    this.isShow = this.global.flag
   }
 };
 </script>

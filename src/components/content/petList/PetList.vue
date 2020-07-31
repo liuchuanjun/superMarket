@@ -1,6 +1,6 @@
 <template>
     <div class="pet-container">
-        <div class="pet-item" v-for="(item,index) in petLists.list" :key="index" @click="petItemClick">
+        <div class="pet-item" v-for="(item,index) in petLists.list" :id="item.id" :key="index" @click="petItemClick">
             <img :src="item.image" alt="" @load='petImageLoad'>
             <span>{{item.title}}</span>
         </div>
@@ -30,9 +30,9 @@ export default {
             this.$emit('petImageLoad')
         },
 
-        petItemClick(){
+        petItemClick($event){
 
-            this.$router.push('/detail')
+            this.$router.push('/detail/' + $event.path[1].id)
         }
     },
     created() {
