@@ -1,6 +1,7 @@
 <template lang="html">
   <div class="">
-    <h2>我是分类</h2>
+    <div>我是分类页面</div>
+    <h2>{{$store.state.counter}}</h2>
   </div>
 
 </template>
@@ -8,7 +9,17 @@
 <script>
 export default {
 
-  name: 'catgory'
+  name: 'catgory',
+  components:{},
+  data(){
+    return{
+
+    }
+  },
+  methods:{
+
+    
+  }
 }
 </script>
 

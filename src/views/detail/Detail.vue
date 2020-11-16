@@ -30,8 +30,6 @@ export default {
 
         this.currentId = this.$route.params.id
 
-        console.log(this.currentId)
-
         this.topImages = this.$test.detailMore[this.currentId].imgaes
 
     },

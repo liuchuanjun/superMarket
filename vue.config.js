@@ -12,5 +12,5 @@ module.exports = {
       .set("base", resolve("baseConfig"))
       .set("public", resolve("public"))
       .set("views", resolve("views"))
-  },
+  }
 }

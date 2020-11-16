@@ -1,8 +1,7 @@
 <template>
   <div class="wrapper">
-    <span v-if="isShow">个人页面</span>
-    <span v-else>我是通过全局的数据加载出来的</span>
-
+    <div>我是个人页面</div>
+    <div>{{$store.state.counter}}</div>
   </div>
 </template>
 
